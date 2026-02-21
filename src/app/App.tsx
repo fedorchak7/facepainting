@@ -1,9 +1,6 @@
 import { useState } from "react";
 import {
   Palette,
-  Users,
-  Building2,
-  Music,
   Sparkles,
   Heart,
   Shield,
@@ -27,7 +24,6 @@ export default function App() {
     email: "",
     phone: "",
     date: "",
-    eventType: "Birthday Party",
     details: "",
   });
   const [submitStatus, setSubmitStatus] = useState<
@@ -58,7 +54,6 @@ export default function App() {
         email: "",
         phone: "",
         date: "",
-        eventType: "Birthday Party",
         details: "",
       });
     } catch {
@@ -72,12 +67,19 @@ export default function App() {
   };
 
   const galleryImages = [
-    "https://images.unsplash.com/photo-1765947386189-975769d0f162?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaGlsZCUyMGZhY2UlMjBwYWludGluZyUyMGNvbG9yZnVsJTIwcGFydHl8ZW58MXx8fHwxNzcxNTM1MzQzfDA&ixlib=rb-4.1.0&q=80&w=1080",
-    "https://images.unsplash.com/photo-1628016354739-6c65f0e11c24?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxnaXJsJTIwYnV0dGVyZmx5JTIwZmFjZSUyMHBhaW50fGVufDF8fHx8MTc3MTUzNTM0NXww&ixlib=rb-4.1.0&q=80&w=1080",
-    "https://images.unsplash.com/photo-1767783703531-536ea0c32478?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaGlsZHJlbiUyMGhhcHB5JTIwcGFpbnRlZCUyMGZhY2VzfGVufDF8fHx8MTc3MTUzNTM0NXww&ixlib=rb-4.1.0&q=80&w=1080",
-    "https://images.unsplash.com/photo-1652635254625-c49d83b310bc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxib3klMjBzdXBlcmhlcm8lMjBmYWNlJTIwcGFpbnR8ZW58MXx8fHwxNzcxNTM1MzQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
-    "https://images.unsplash.com/photo-1762912913371-ccc0a5fca0ae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxraWRzJTIwYmlydGhkYXklMjBwYXJ0eSUyMGNlbGVicmF0aW9ufGVufDF8fHx8MTc3MTUzNTM0NHww&ixlib=rb-4.1.0&q=80&w=1080",
-    "https://images.unsplash.com/photo-1761145275111-e62cbdba6f57?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxib2R5JTIwYXJ0JTIwcGFpbnRpbmclMjBhcnRpc3RpY3xlbnwxfHx8fDE3NzE1MzUzNDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "/photo_1_2026-02-21_16-37-57.jpg",
+    "/photo_2_2026-02-21_16-37-57.jpg",
+    "/photo_3_2026-02-21_16-37-57.jpg",
+    "/photo_4_2026-02-21_16-37-57.jpg",
+    "/photo_5_2026-02-21_16-37-57.jpg",
+    "/photo_6_2026-02-21_16-37-57.jpg",
+    "/photo_7_2026-02-21_16-37-57.jpg",
+    "/photo_8_2026-02-21_16-37-57.jpg",
+    "/photo_9_2026-02-21_16-37-57.jpg",
+    "/photo_10_2026-02-21_16-37-57.jpg",
+    "/photo_11_2026-02-21_16-37-57.jpg",
+    "/photo_12_2026-02-21_16-37-57.jpg",
+    "/photo_13_2026-02-21_16-37-57.jpg",
   ];
 
   return (
@@ -100,12 +102,6 @@ export default function App() {
                 className="text-[#1F2937] hover:text-[#06B6D4] transition-colors"
               >
                 About
-              </a>
-              <a
-                href="#services"
-                className="text-[#1F2937] hover:text-[#06B6D4] transition-colors"
-              >
-                Services
               </a>
               <a
                 href="#gallery"
@@ -153,13 +149,6 @@ export default function App() {
                 About
               </a>
               <a
-                href="#services"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-[#1F2937] hover:text-[#06B6D4]"
-              >
-                Services
-              </a>
-              <a
                 href="#gallery"
                 onClick={() => setMobileMenuOpen(false)}
                 className="text-[#1F2937] hover:text-[#06B6D4]"
@@ -190,7 +179,7 @@ export default function App() {
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage:
-              "url(https://images.unsplash.com/photo-1765947386189-975769d0f162?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaGlsZCUyMGZhY2UlMjBwYWludGluZyUyMGNvbG9yZnVsJTIwcGFydHl8ZW58MXx8fHwxNzcxNTM1MzQzfDA&ixlib=rb-4.1.0&q=80&w=1080)",
+              "url(/photo_1_2026-02-21_16-37-57.jpg)",
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/40"></div>
@@ -202,14 +191,14 @@ export default function App() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight">
-            Face Painting in Maryland
+            Face Painting Maryland
             <br />
-            for Kids Parties
+            &amp; DMV Area
           </h1>
 
           <p className="text-lg lg:text-xl text-white/90 mb-10 max-w-2xl mx-auto">
-            Professional face painting that brings joy and color to every
-            celebration. Safe, fun, and unforgettable!
+            Bringing color and magic to your party ✨ Beautiful, aesthetic
+            designs using high-quality, skin-safe products.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -243,17 +232,18 @@ export default function App() {
 
             <div>
               <h2 className="text-3xl lg:text-5xl font-bold text-[#1F2937] mb-6">
-                Creating Magical Moments Since 2019
+                Creating Magical Moments
               </h2>
               <p className="text-lg text-gray-600 mb-4 leading-relaxed">
-                Hi! I'm a professional face painter based in Maryland,
-                specializing in bringing imagination to life at children's
-                parties, corporate events, and festivals.
+                I create beautiful, aesthetic face painting designs that make
+                every child (and adult!) feel special. Each design is detailed,
+                clean, and professionally done using high-quality, skin-safe
+                products.
               </p>
               <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                Every child deserves to feel special, and with safe,
-                hypoallergenic paints and years of experience, I create designs
-                that spark joy and make memories that last a lifetime.
+                Perfect for birthdays, events, and special celebrations in the
+                DMV area. I take pride in every design — from simple and sweet
+                to detailed and dramatic.
               </p>
               <a
                 href="#gallery"
@@ -262,82 +252,6 @@ export default function App() {
                 View Gallery <span>→</span>
               </a>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section id="services" className="py-16 lg:py-24 px-4 bg-[#F0FDFA]">
-        <div className="mx-auto max-w-[1200px]">
-          <div className="text-center mb-12 lg:mb-16">
-            <h2 className="text-3xl lg:text-5xl font-bold text-[#1F2937] mb-4">
-              Services We Offer
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              From birthday parties to corporate events, we bring color and
-              creativity to every occasion
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            {[
-              {
-                icon: <Users className="w-10 h-10" />,
-                title: "Kids Parties",
-                description:
-                  "Transform birthdays into magical adventures with colorful face designs",
-                color: "#EC4899",
-              },
-              {
-                icon: <Building2 className="w-10 h-10" />,
-                title: "Corporate Events",
-                description:
-                  "Add a fun touch to company picnics and family days",
-                color: "#8B5CF6",
-              },
-              {
-                icon: <Music className="w-10 h-10" />,
-                title: "Festivals",
-                description:
-                  "Entertain crowds at fairs, festivals, and community events",
-                color: "#FBBF24",
-              },
-              {
-                icon: <Sparkles className="w-10 h-10" />,
-                title: "Body Art",
-                description:
-                  "Creative body painting for special occasions and photoshoots",
-                color: "#06B6D4",
-              },
-            ].map((service, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-3xl p-8 hover:shadow-xl transition-all hover:-translate-y-1"
-              >
-                <div
-                  className="inline-flex p-4 rounded-2xl mb-6"
-                  style={{
-                    backgroundColor: `${service.color}20`,
-                    color: service.color,
-                  }}
-                >
-                  {service.icon}
-                </div>
-                <h3 className="text-xl font-bold text-[#1F2937] mb-3">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">
-                  {service.description}
-                </p>
-                <button
-                  onClick={scrollToBooking}
-                  className="text-sm px-6 py-2.5 rounded-full border-2 hover:bg-gray-50 transition-all"
-                  style={{ borderColor: service.color, color: service.color }}
-                >
-                  Learn More
-                </button>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -404,47 +318,46 @@ export default function App() {
               Simple Pricing
             </h2>
             <p className="text-lg text-gray-600">
-              Choose the perfect package for your event
+              Starting from $125/hour — contact us for a custom quote
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
             {[
               {
-                name: "Basic",
-                price: "150",
-                duration: "1 hour",
+                name: "1 Hour",
+                price: "125",
+                duration: "hour",
                 features: [
-                  "Up to 15 kids",
-                  "Simple designs",
-                  "Basic color palette",
+                  "Up to ~15 designs",
+                  "All standard designs",
+                  "Skin-safe products",
                   "Professional setup",
                 ],
               },
               {
-                name: "Popular",
-                price: "275",
+                name: "2 Hours",
+                price: "250",
                 duration: "2 hours",
                 features: [
-                  "Up to 30 kids",
-                  "Advanced designs",
-                  "Full color palette",
-                  "Photo opportunities",
-                  "Design book",
+                  "Up to ~30 designs",
+                  "All standard designs",
+                  "Skin-safe products",
+                  "Glitter add-ons",
+                  "Ideal for parties",
                 ],
                 popular: true,
               },
               {
-                name: "Premium",
-                price: "400",
+                name: "3 Hours",
+                price: "375",
                 duration: "3 hours",
                 features: [
-                  "Unlimited kids",
-                  "Premium designs",
-                  "Full color palette",
-                  "Custom designs",
-                  "Photo props",
+                  "Up to ~45 designs",
+                  "Premium & custom designs",
+                  "Skin-safe products",
                   "Glitter & gems",
+                  "Great for festivals",
                 ],
               },
             ].map((plan, index) => (
@@ -670,21 +583,6 @@ export default function App() {
               </div>
 
               <div>
-                <label className="block text-[#1F2937] mb-2">Event Type</label>
-                <select
-                  name="eventType"
-                  value={form.eventType}
-                  onChange={handleFormChange}
-                  className="w-full px-4 py-3 rounded-2xl bg-gray-50 border border-gray-200 focus:border-[#06B6D4] focus:ring-2 focus:ring-[#06B6D4]/20 outline-none transition-all"
-                >
-                  <option>Birthday Party</option>
-                  <option>Corporate Event</option>
-                  <option>Festival</option>
-                  <option>Other</option>
-                </select>
-              </div>
-
-              <div>
                 <label className="block text-[#1F2937] mb-2">
                   Additional Details
                 </label>
@@ -733,9 +631,12 @@ export default function App() {
                     </div>
                     <div>
                       <p className="text-sm text-gray-600">Call or Text</p>
-                      <p className="text-[#1F2937] font-semibold">
-                        (555) 789-1234
-                      </p>
+                      <a
+                        href="tel:+12407156247"
+                        className="text-[#1F2937] font-semibold hover:text-[#06B6D4] transition-colors"
+                      >
+                        +1 (240) 715-6247
+                      </a>
                     </div>
                   </div>
 
@@ -745,9 +646,12 @@ export default function App() {
                     </div>
                     <div>
                       <p className="text-sm text-gray-600">Email</p>
-                      <p className="text-[#1F2937] font-semibold">
-                        hello@colorsplashmd.com
-                      </p>
+                      <a
+                        href="mailto:marianadrozdiuk9@gmail.com"
+                        className="text-[#1F2937] font-semibold hover:text-[#06B6D4] transition-colors"
+                      >
+                        marianadrozdiuk9@gmail.com
+                      </a>
                     </div>
                   </div>
 
@@ -756,25 +660,36 @@ export default function App() {
                       <Instagram className="w-6 h-6 text-[#06B6D4]" />
                     </div>
                     <div>
-                      <p className="text-sm text-gray-600">Follow Us</p>
-                      <p className="text-[#1F2937] font-semibold">
+                      <p className="text-sm text-gray-600">DM to Book</p>
+                      <a
+                        href="https://www.instagram.com/facepainting_mary_land"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#1F2937] font-semibold hover:text-[#06B6D4] transition-colors"
+                      >
                         @facepainting_mary_land
-                      </p>
+                      </a>
                     </div>
+                  </div>
+
+                  <div className="pt-2 border-t border-gray-200">
+                    <p className="text-sm text-gray-600 mb-2 font-medium">Working Hours</p>
+                    <p className="text-[#1F2937]">Mon – Sat: 9:30 am – 9:30 pm</p>
+                    <p className="text-[#1F2937]">Sunday: 11:00 am – 8:30 pm</p>
                   </div>
                 </div>
               </div>
 
               <div className="bg-gradient-to-br from-[#8B5CF6] to-[#EC4899] rounded-3xl p-8 text-white">
                 <h3 className="text-2xl font-bold mb-4">
-                  Same-Day Booking Available!
+                  Serving Maryland & DMV Area
                 </h3>
                 <p className="text-white/90 mb-4">
-                  Need a last-minute face painter? We often have same-day
-                  availability. Give us a call!
+                  Ready to make your event unforgettable? DM on Instagram or
+                  send a message — we'll get back to you quickly!
                 </p>
                 <p className="text-sm text-white/80">
-                  Available 7 days a week • Serving all of Maryland
+                  Available Mon–Sat 9:30am–9:30pm • Sun 11am–8:30pm
                 </p>
               </div>
             </div>
@@ -798,12 +713,6 @@ export default function App() {
               className="text-gray-400 hover:text-[#06B6D4] transition-colors"
             >
               About
-            </a>
-            <a
-              href="#services"
-              className="text-gray-400 hover:text-[#06B6D4] transition-colors"
-            >
-              Services
             </a>
             <a
               href="#gallery"

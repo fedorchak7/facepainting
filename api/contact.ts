@@ -11,7 +11,7 @@ export default async function handler(
     return res.status(405).end();
   }
 
-  const { name, email, phone, date, eventType, details } = req.body;
+  const { name, email, phone, date, details } = req.body;
 
   const text = [
     "📅 *New Booking Request*",
@@ -19,7 +19,6 @@ export default async function handler(
     `📧 Email: ${email}`,
     `📞 Phone: ${phone}`,
     `🗓 Date: ${date}`,
-    `🎉 Event Type: ${eventType}`,
     details ? `📝 Details: ${details}` : "",
   ]
     .filter(Boolean)
