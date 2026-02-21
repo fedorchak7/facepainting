@@ -1,0 +1,16 @@
+{
+  "name": "ColorSplash Face Painting",
+  "short_name": "ColorSplash",
+  "description": "Professional face painting in Maryland & DMV Area",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#06B6D4",
+  "icons": [
+    {
+      "src": "/mariana_facepainting.jpg",
+      "sizes": "any",
+      "type": "image/jpeg"
+    }
+  ]
+}

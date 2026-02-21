@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
 import {
   Palette,
   Sparkles,
@@ -24,6 +26,7 @@ export default function App() {
     email: "",
     phone: "",
     date: "",
+    hours: "",
     details: "",
   });
   const [submitStatus, setSubmitStatus] = useState<
@@ -54,6 +57,7 @@ export default function App() {
         email: "",
         phone: "",
         date: "",
+        hours: "",
         details: "",
       });
     } catch {
@@ -61,7 +65,8 @@ export default function App() {
     }
   };
 
-  const scrollToBooking = () => {
+  const scrollToBooking = (hours?: string) => {
+    if (hours) setForm((prev: typeof form) => ({ ...prev, hours }));
     document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" });
     setMobileMenuOpen(false);
   };
@@ -117,7 +122,7 @@ export default function App() {
               </a>
               <button
                 onClick={scrollToBooking}
-                className="bg-[#06B6D4] text-white px-6 py-2.5 rounded-3xl hover:bg-[#0891B2] transition-all hover:shadow-lg hover:-translate-y-0.5"
+                className="cursor-pointer bg-[#06B6D4] text-white px-6 py-2.5 rounded-3xl hover:bg-[#0891B2] transition-all hover:shadow-lg hover:-translate-y-0.5"
               >
                 Book Now
               </button>
@@ -126,7 +131,7 @@ export default function App() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 text-[#1F2937]"
+              className="cursor-pointer md:hidden p-2 text-[#1F2937] hover:text-[#06B6D4] transition-colors rounded-xl hover:bg-gray-100"
             >
               {mobileMenuOpen ? (
                 <X className="w-6 h-6" />
@@ -164,7 +169,7 @@ export default function App() {
               </a>
               <button
                 onClick={scrollToBooking}
-                className="bg-[#06B6D4] text-white px-6 py-3 rounded-3xl hover:bg-[#0891B2] transition-all text-left"
+                className="cursor-pointer bg-[#06B6D4] text-white px-6 py-3 rounded-3xl hover:bg-[#0891B2] transition-all hover:shadow-lg hover:-translate-y-0.5 text-left"
               >
                 Book Now
               </button>
@@ -204,13 +209,13 @@ export default function App() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={scrollToBooking}
-              className="bg-[#06B6D4] text-white px-8 py-4 rounded-3xl text-lg hover:bg-[#0891B2] transition-all hover:shadow-xl hover:-translate-y-1"
+              className="cursor-pointer bg-[#06B6D4] text-white px-8 py-4 rounded-3xl text-lg hover:bg-[#0891B2] transition-all hover:shadow-xl hover:-translate-y-1"
             >
               Book Now
             </button>
             <button
               onClick={scrollToBooking}
-              className="bg-white text-[#1F2937] px-8 py-4 rounded-3xl text-lg hover:bg-gray-50 transition-all hover:shadow-xl hover:-translate-y-1"
+              className="cursor-pointer bg-white text-[#1F2937] px-8 py-4 rounded-3xl text-lg hover:bg-gray-50 transition-all hover:shadow-xl hover:-translate-y-1"
             >
               Get a Quote
             </button>
@@ -277,7 +282,7 @@ export default function App() {
               >
                 <ImageWithFallback
                   src={image}
-                  alt={`Face painting example ${index + 1}`}
+                  alt={`Face painting by Mariana - Maryland & DMV area - example ${index + 1}`}
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -294,7 +299,7 @@ export default function App() {
           onClick={() => setSelectedImage(null)}
         >
           <button
-            className="absolute top-4 right-4 text-white hover:text-gray-300"
+            className="cursor-pointer absolute top-4 right-4 text-white hover:text-gray-300"
             onClick={() => setSelectedImage(null)}
           >
             <X className="w-8 h-8" />
@@ -392,8 +397,8 @@ export default function App() {
                   ))}
                 </ul>
                 <button
-                  onClick={scrollToBooking}
-                  className={`w-full py-3.5 rounded-3xl font-semibold transition-all hover:shadow-lg hover:-translate-y-0.5 ${
+                  onClick={() => scrollToBooking(plan.name)}
+                  className={`cursor-pointer w-full py-3.5 rounded-3xl font-semibold transition-all hover:shadow-lg hover:-translate-y-0.5 ${
                     plan.popular
                       ? "bg-[#06B6D4] text-white hover:bg-[#0891B2]"
                       : "bg-gray-100 text-[#1F2937] hover:bg-gray-200"
@@ -557,14 +562,16 @@ export default function App() {
 
               <div>
                 <label className="block text-[#1F2937] mb-2">Phone *</label>
-                <input
-                  type="tel"
-                  name="phone"
+                <PhoneInput
+                  defaultCountry="us"
                   value={form.phone}
-                  onChange={handleFormChange}
-                  required
-                  className="w-full px-4 py-3 rounded-2xl bg-gray-50 border border-gray-200 focus:border-[#06B6D4] focus:ring-2 focus:ring-[#06B6D4]/20 outline-none transition-all"
-                  placeholder="(555) 123-4567"
+                  onChange={(phone) => setForm((prev: typeof form) => ({ ...prev, phone }))}
+                  inputProps={{ name: "phone", autoComplete: "tel", required: true }}
+                  inputClassName="!w-full !px-4 !py-3 !rounded-r-2xl !bg-gray-50 !border !border-gray-200 focus:!border-[#06B6D4] focus:!ring-2 focus:!ring-[#06B6D4]/20 !outline-none !transition-all"
+                  countrySelectorStyleProps={{
+                    buttonClassName: "!rounded-l-2xl !bg-gray-50 !border !border-gray-200 !px-3 !h-full",
+                  }}
+                  style={{ display: "flex", width: "100%" }}
                 />
               </div>
 
@@ -578,8 +585,26 @@ export default function App() {
                   value={form.date}
                   onChange={handleFormChange}
                   required
+                  min={new Date().toISOString().split("T")[0]}
                   className="w-full px-4 py-3 rounded-2xl bg-gray-50 border border-gray-200 focus:border-[#06B6D4] focus:ring-2 focus:ring-[#06B6D4]/20 outline-none transition-all"
                 />
+              </div>
+
+              <div>
+                <label className="block text-[#1F2937] mb-2">
+                  How Many Hours
+                </label>
+                <select
+                  name="hours"
+                  value={form.hours}
+                  onChange={handleFormChange}
+                  className="w-full px-4 py-3 rounded-2xl bg-gray-50 border border-gray-200 focus:border-[#06B6D4] focus:ring-2 focus:ring-[#06B6D4]/20 outline-none transition-all"
+                >
+                  <option value="">Select...</option>
+                  <option value="1 Hour">1 Hour — $125</option>
+                  <option value="2 Hours">2 Hours — $250</option>
+                  <option value="3 Hours">3 Hours — $375</option>
+                </select>
               </div>
 
               <div>
@@ -610,7 +635,7 @@ export default function App() {
               <button
                 type="submit"
                 disabled={submitStatus === "sending"}
-                className="w-full bg-[#06B6D4] text-white px-8 py-4 rounded-3xl text-lg hover:bg-[#0891B2] transition-all hover:shadow-xl hover:-translate-y-1 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
+                className="cursor-pointer w-full bg-[#06B6D4] text-white px-8 py-4 rounded-3xl text-lg hover:bg-[#0891B2] transition-all hover:shadow-xl hover:-translate-y-1 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
               >
                 {submitStatus === "sending"
                   ? "Sending…"
@@ -743,7 +768,7 @@ export default function App() {
       <div className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-white via-white to-transparent md:hidden z-40">
         <button
           onClick={scrollToBooking}
-          className="w-full bg-[#06B6D4] text-white px-8 py-4 rounded-3xl text-lg hover:bg-[#0891B2] transition-all shadow-xl"
+          className="cursor-pointer w-full bg-[#06B6D4] text-white px-8 py-4 rounded-3xl text-lg hover:bg-[#0891B2] transition-all hover:shadow-2xl hover:-translate-y-0.5 shadow-xl"
         >
           Book Now
         </button>
