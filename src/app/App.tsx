@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import {
@@ -20,6 +20,17 @@ import { ImageWithFallback } from "./components/figma/ImageWithFallback";
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [heroVisible, setHeroVisible] = useState(true);
+  const heroRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setHeroVisible(entry.isIntersecting),
+      { threshold: 0.1 },
+    );
+    if (heroRef.current) observer.observe(heroRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   const [form, setForm] = useState({
     name: "",
@@ -131,6 +142,8 @@ export default function App() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
               className="cursor-pointer md:hidden p-2 text-[#1F2937] hover:text-[#06B6D4] transition-colors rounded-xl hover:bg-gray-100"
             >
               {mobileMenuOpen ? (
@@ -179,7 +192,7 @@ export default function App() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative h-[85vh] lg:h-[90vh] flex items-center justify-center mt-16 lg:mt-20">
+      <section ref={heroRef} className="relative h-[85vh] lg:h-[90vh] flex items-center justify-center mt-16 lg:mt-20">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -201,7 +214,7 @@ export default function App() {
             &amp; DMV Area
           </h1>
 
-          <p className="text-lg lg:text-xl text-white/90 mb-10 max-w-2xl mx-auto">
+          <p className="text-lg lg:text-xl text-white mb-10 max-w-2xl mx-auto">
             Bringing color and magic to your party ✨ Beautiful, aesthetic
             designs using high-quality, skin-safe products.
           </p>
@@ -275,9 +288,10 @@ export default function App() {
 
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
             {galleryImages.map((image, index) => (
-              <div
+              <button
                 key={index}
-                className="relative aspect-square rounded-2xl lg:rounded-3xl overflow-hidden cursor-pointer group"
+                className="relative aspect-square rounded-2xl lg:rounded-3xl overflow-hidden cursor-pointer group text-left"
+                aria-label={`View face painting example ${index + 1}`}
                 onClick={() => setSelectedImage(image)}
               >
                 <ImageWithFallback
@@ -286,7 +300,7 @@ export default function App() {
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              </div>
+              </button>
             ))}
           </div>
         </div>
@@ -300,6 +314,7 @@ export default function App() {
         >
           <button
             className="cursor-pointer absolute top-4 right-4 text-white hover:text-gray-300"
+            aria-label="Close image"
             onClick={() => setSelectedImage(null)}
           >
             <X className="w-8 h-8" />
@@ -472,7 +487,7 @@ export default function App() {
             <h2 className="text-3xl lg:text-5xl font-bold text-white mb-4">
               What Parents Say
             </h2>
-            <p className="text-lg text-white/90">
+            <p className="text-lg text-white">
               Trusted by families across Maryland
             </p>
           </div>
@@ -521,7 +536,7 @@ export default function App() {
       </section>
 
       {/* Contact / Booking Section */}
-      <section id="booking" className="py-16 lg:py-24 px-4 bg-white">
+      <section id="booking" className="py-16 lg:py-24 pb-28 lg:pb-24 px-4 bg-white">
         <div className="mx-auto max-w-[1200px]">
           <div className="text-center mb-12 lg:mb-16">
             <h2 className="text-3xl lg:text-5xl font-bold text-[#1F2937] mb-4">
@@ -535,38 +550,42 @@ export default function App() {
           <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
-                <label className="block text-[#1F2937] mb-2">Your Name *</label>
+                <label htmlFor="form-name" className="block text-[#1F2937] mb-2">Your Name *</label>
                 <input
+                  id="form-name"
                   type="text"
                   name="name"
                   value={form.name}
                   onChange={handleFormChange}
                   required
+                  autoComplete="name"
                   className="w-full px-4 py-3 rounded-2xl bg-gray-50 border border-gray-200 focus:border-[#06B6D4] focus:ring-2 focus:ring-[#06B6D4]/20 outline-none transition-all"
                   placeholder="Jane Smith"
                 />
               </div>
 
               <div>
-                <label className="block text-[#1F2937] mb-2">Email *</label>
+                <label htmlFor="form-email" className="block text-[#1F2937] mb-2">Email *</label>
                 <input
+                  id="form-email"
                   type="email"
                   name="email"
                   value={form.email}
                   onChange={handleFormChange}
                   required
+                  autoComplete="email"
                   className="w-full px-4 py-3 rounded-2xl bg-gray-50 border border-gray-200 focus:border-[#06B6D4] focus:ring-2 focus:ring-[#06B6D4]/20 outline-none transition-all"
                   placeholder="jane@example.com"
                 />
               </div>
 
               <div>
-                <label className="block text-[#1F2937] mb-2">Phone *</label>
+                <label htmlFor="form-phone" className="block text-[#1F2937] mb-2">Phone *</label>
                 <PhoneInput
                   defaultCountry="us"
                   value={form.phone}
                   onChange={(phone) => setForm((prev: typeof form) => ({ ...prev, phone }))}
-                  inputProps={{ name: "phone", autoComplete: "tel", required: true }}
+                  inputProps={{ id: "form-phone", name: "phone", autoComplete: "tel", required: true }}
                   inputClassName="!w-full !px-4 !py-3 !rounded-r-2xl !bg-gray-50 !border !border-gray-200 focus:!border-[#06B6D4] focus:!ring-2 focus:!ring-[#06B6D4]/20 !outline-none !transition-all"
                   countrySelectorStyleProps={{
                     buttonClassName: "!rounded-l-2xl !bg-gray-50 !border !border-gray-200 !px-3 !h-full",
@@ -576,10 +595,11 @@ export default function App() {
               </div>
 
               <div>
-                <label className="block text-[#1F2937] mb-2">
+                <label htmlFor="form-date" className="block text-[#1F2937] mb-2">
                   Event Date *
                 </label>
                 <input
+                  id="form-date"
                   type="date"
                   name="date"
                   value={form.date}
@@ -591,10 +611,11 @@ export default function App() {
               </div>
 
               <div>
-                <label className="block text-[#1F2937] mb-2">
+                <label htmlFor="form-hours" className="block text-[#1F2937] mb-2">
                   How Many Hours
                 </label>
                 <select
+                  id="form-hours"
                   name="hours"
                   value={form.hours}
                   onChange={handleFormChange}
@@ -608,10 +629,11 @@ export default function App() {
               </div>
 
               <div>
-                <label className="block text-[#1F2937] mb-2">
+                <label htmlFor="form-details" className="block text-[#1F2937] mb-2">
                   Additional Details
                 </label>
                 <textarea
+                  id="form-details"
                   name="details"
                   value={form.details}
                   onChange={handleFormChange}
@@ -709,11 +731,11 @@ export default function App() {
                 <h3 className="text-2xl font-bold mb-4">
                   Serving Maryland & DMV Area
                 </h3>
-                <p className="text-white/90 mb-4">
+                <p className="text-white mb-4">
                   Ready to make your event unforgettable? DM on Instagram or
                   send a message — we'll get back to you quickly!
                 </p>
-                <p className="text-sm text-white/80">
+                <p className="text-sm text-white">
                   Available Mon–Sat 9:30am–9:30pm • Sun 11am–8:30pm
                 </p>
               </div>
@@ -758,14 +780,14 @@ export default function App() {
               Contact
             </a>
           </div>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-400">
             © 2026 ColorSplash Face Painting. All rights reserved.
           </p>
         </div>
       </footer>
 
       {/* Mobile Sticky Button */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-white via-white to-transparent md:hidden z-40">
+      <div className={`fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-white via-white to-transparent md:hidden z-40 transition-transform duration-300 ${heroVisible ? "translate-y-full" : "translate-y-0"}`}>
         <button
           onClick={scrollToBooking}
           className="cursor-pointer w-full bg-[#06B6D4] text-white px-8 py-4 rounded-3xl text-lg hover:bg-[#0891B2] transition-all hover:shadow-2xl hover:-translate-y-0.5 shadow-xl"
