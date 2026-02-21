@@ -585,7 +585,7 @@ export default function App() {
                   defaultCountry="us"
                   value={form.phone}
                   onChange={(phone) => setForm((prev: typeof form) => ({ ...prev, phone }))}
-                  inputProps={{ id: "form-phone", name: "phone", autoComplete: "tel", required: true }}
+                  inputProps={{ id: "form-phone", name: "phone", autoComplete: "tel", required: true, style: { fontSize: "16px" } }}
                   inputClassName="!w-full !px-4 !py-3 !rounded-r-2xl !bg-gray-50 !border !border-gray-200 focus:!border-[#06B6D4] focus:!ring-2 focus:!ring-[#06B6D4]/20 !outline-none !transition-all"
                   countrySelectorStyleProps={{
                     buttonClassName: "!rounded-l-2xl !bg-gray-50 !border !border-gray-200 !px-3 !h-full",
